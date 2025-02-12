@@ -12,7 +12,7 @@ import {
 import { Todo } from "./types/Todo";
 import { initialTodos } from "./data";
 import TodoItem from "./components/TodoItem";
-import { v4 as uuidv4 } from "uuid";
+import uuid from "react-native-uuid";
 import AntDesign from "@expo/vector-icons/AntDesign";
 
 export default function App() {
@@ -30,7 +30,7 @@ export default function App() {
       Alert.alert("Error", "Please enter a todo");
     } else {
       const newTodo: Todo = {
-        id: uuidv4(),
+        id: uuid.v4(),
         text: newTodoText,
         completed: false,
       };
