@@ -20,6 +20,7 @@ export default function App() {
   const [todos, setTodos] = useState<Todo[]>([]);
   const [newTodoText, setNewTodoText] = useState("");
 
+  // Add todo
   const addTodo = () => {
     // Can't add todo if todo is full (max is 10)
     if (todos.length >= 10) {
