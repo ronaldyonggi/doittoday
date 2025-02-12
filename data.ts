@@ -36,19 +36,4 @@ export const initialTodos: Todo[] = [
     text: "Walk the dog",
     completed: false,
   },
-  {
-    id: "8",
-    text: "Watch a movie",
-    completed: true,
-  },
-  {
-    id: "9",
-    text: "Read a book",
-    completed: false,
-  },
-  {
-    id: "10",
-    text: "Cook a meal",
-    completed: false,
-  }
 ];
