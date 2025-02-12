@@ -14,6 +14,7 @@ import { initialTodos } from "./data";
 import TodoItem from "./components/TodoItem";
 import uuid from "react-native-uuid";
 import AntDesign from "@expo/vector-icons/AntDesign";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function App() {
   const [todos, setTodos] = useState<Todo[]>([]);
@@ -65,9 +66,36 @@ export default function App() {
     ]);
   };
 
+  // Initial load todos data
   useEffect(() => {
-    setTodos(initialTodos);
+    const loadTodos = async () => {
+      try {
+        const storedTodos = await AsyncStorage.getItem("todos");
+        if (storedTodos) {
+          setTodos(JSON.parse(storedTodos));
+        }
+      } catch (error) {
+        console.error("Error loading todos:", error);
+        Alert.alert("Error", "Failed to load todos");
+      }
+    };
+
+    loadTodos();
   }, []);
+
+  // Saving data to async storage
+  useEffect(() => {
+    const saveTodos = async () => {
+      try {
+        await AsyncStorage.setItem("todos", JSON.stringify(todos));
+      } catch (error) {
+        console.error("Error saving todos:", error);
+        Alert.alert("Error", "Failed to save todos");
+      }
+    };
+
+    saveTodos();
+  }, [todos]);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -130,6 +158,6 @@ const styles = StyleSheet.create({
     marginTop: 90,
   },
   addButton: {
-    padding: 10
-  }
+    padding: 10,
+  },
 });
