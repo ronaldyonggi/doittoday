@@ -36,6 +36,26 @@ export default function App() {
     }
   };
 
+  // Schedule next reset
+  const scheduleNextReset = async () => {
+    const now = new Date();
+    const tomorrow = new Date(now);
+    tomorrow.setDate(now.getDate() + 1);
+    tomorrow.setHours(0, 0, 0, 0); // Set to midnight tomorrow
+
+    const timeUntilTomorrow = tomorrow.getTime() - now.getTime();
+
+    // Clear any existing timeout
+    if (resetTimeOut) {
+      clearTimeout(resetTimeOut);
+    }
+
+    // Set the reset time out
+    resetTimeOut = setTimeout(() => {
+      resetTodos();
+    }, timeUntilTomorrow);
+  };
+
   // Add todo
   const addTodo = () => {
     // Can't add todo if todo is full (max is 10)
