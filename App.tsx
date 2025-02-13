@@ -121,8 +121,8 @@ export default function App() {
 
           // Otherwise it's still the same day. Load todos from storedTodos
           else {
-        if (storedTodos) {
-          setTodos(JSON.parse(storedTodos));
+            if (storedTodos) {
+              setTodos(JSON.parse(storedTodos));
             }
             /**
              * IMPORTANT!
