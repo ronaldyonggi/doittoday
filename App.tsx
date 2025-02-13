@@ -10,7 +10,6 @@ import {
   View,
 } from "react-native";
 import { Todo } from "./types/Todo";
-import { initialTodos } from "./data";
 import TodoItem from "./components/TodoItem";
 import uuid from "react-native-uuid";
 import AntDesign from "@expo/vector-icons/AntDesign";
