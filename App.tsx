@@ -103,21 +103,75 @@ export default function App() {
     ]);
   };
 
-  // Initial load todos data
+  // Initial load todos data and check for reset
   useEffect(() => {
-    const loadTodos = async () => {
+    const loadTodosAndCheckReset = async () => {
       try {
+        const lastResetString = await AsyncStorage.getItem("lastReset");
         const storedTodos = await AsyncStorage.getItem("todos");
+
+        if (lastResetString) {
+          const lastReset = new Date(parseInt(lastResetString)); // Get last reset date
+          const now = new Date(); // Get current date
+
+          // If now and lastReset on different day, reset!
+          if (now.toDateString() !== lastReset.toDateString()) {
+            await resetTodos();
+          }
+
+          // Otherwise it's still the same day. Load todos from storedTodos
+          else {
         if (storedTodos) {
           setTodos(JSON.parse(storedTodos));
+            }
+            /**
+             * IMPORTANT!
+             * Schedule next reset after loading todos. If we don't do this, todo list wouldn't reset at midnight
+             */
+            scheduleNextReset();
+          }
+        } else {
+          // Case it's first run (no reset string set)
+          await resetTodos();
         }
       } catch (error) {
-        console.error("Error loading todos:", error);
-        Alert.alert("Error", "Failed to load todos");
+        console.error("Failed to load or reset todos.", error);
+        Alert.alert("Error", "Failed to load or reset todos.");
       }
     };
 
-    loadTodos();
+    loadTodosAndCheckReset();
+
+    // Handle app state changes
+    const handleAppStateChange = (nextAppState: string) => {
+      /**
+       * When app becomes active, call the same function we use upon app load:
+       * - check if a day has passed since the last reset
+       * - reset todo list if necessary
+       * - or load to do list if it hasn't been reset
+       * - rescheudle setTimeOut for next midnight reset
+       */
+      if (nextAppState == "active") {
+        loadTodosAndCheckReset();
+      }
+    };
+
+    /**
+     * Subscribes the handleAppStateChange function to be called whenever app state changes.
+     */
+    const appStateSubscription = AppState.addEventListener(
+      "change",
+      handleAppStateChange
+    );
+
+    // Cleanup function to prevent memory leaks
+    return () => {
+      if (resetTimeOut) {
+        clearTimeout(resetTimeOut); // Clear timeout on unmount
+      }
+
+      appStateSubscription.remove();
+    };
   }, []);
 
   // Saving data to async storage
