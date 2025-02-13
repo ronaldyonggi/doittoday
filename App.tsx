@@ -23,6 +23,19 @@ export default function App() {
   // initialize reset timeout
   let resetTimeOut: NodeJS.Timeout | null = null;
 
+  // Reset todos to empty
+  const resetTodos = async () => {
+    try {
+      setTodos([]); // Clear current rendered todos
+      await AsyncStorage.removeItem("todos"); // Clear todos from storage
+      await AsyncStorage.setItem("lastReset", new Date().getTime().toString()); // Store current timestamp
+      scheduleNextReset();
+    } catch (error) {
+      console.error("Error resetting todos:", error);
+      Alert.alert("Error", "Failed to reset todos");
+    }
+  };
+
   // Add todo
   const addTodo = () => {
     // Can't add todo if todo is full (max is 10)
