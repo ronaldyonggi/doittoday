@@ -20,6 +20,9 @@ export default function App() {
   const [todos, setTodos] = useState<Todo[]>([]);
   const [newTodoText, setNewTodoText] = useState("");
 
+  // initialize reset timeout
+  let resetTimeOut: NodeJS.Timeout | null = null;
+
   // Add todo
   const addTodo = () => {
     // Can't add todo if todo is full (max is 10)
