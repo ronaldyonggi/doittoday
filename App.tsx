@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import {
   Alert,
+  AppState,
   FlatList,
   SafeAreaView,
   StyleSheet,
