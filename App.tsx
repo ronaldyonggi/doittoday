@@ -178,7 +178,9 @@ export default function App() {
   useEffect(() => {
     const saveTodos = async () => {
       try {
-        await AsyncStorage.setItem("todos", JSON.stringify(todos));
+        if (todos) {
+          await AsyncStorage.setItem("todos", JSON.stringify(todos));
+        }
       } catch (error) {
         console.error("Error saving todos:", error);
         Alert.alert("Error", "Failed to save todos");
