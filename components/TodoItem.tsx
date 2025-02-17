@@ -22,6 +22,17 @@ export default function TodoItem({ todo, onToggle, onDelete }: TodoItemProps) {
       onPress={() => onToggle(todo.id)}
     >
       <View style={styles.itemContainer}>
+        <View style={styles.textAndCheckContainer}>
+          <FontAwesome
+            name={todo.completed ? "check-circle-o" : "circle-o"}
+            size={18}
+            onPress={() => onToggle(todo.id)}
+            color={todo.completed ? "green" : "gray"}
+          />
+          <Text style={[styles.text, todo.completed && styles.completedText]}>
+            {todo.text}
+          </Text>
+        </View>
         <FontAwesome
           name="trash-o"
           size={18}
