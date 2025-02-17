@@ -63,4 +63,8 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     paddingHorizontal: 10,
   },
+  textAndCheckContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+  }
 });
