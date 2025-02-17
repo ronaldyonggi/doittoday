@@ -13,7 +13,7 @@ import {
 import { Todo } from "./types/Todo";
 import TodoItem from "./components/TodoItem";
 import uuid from "react-native-uuid";
-import AntDesign from "@expo/vector-icons/AntDesign";
+import FontAwesome from "@expo/vector-icons/FontAwesome";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function App() {
@@ -209,9 +209,10 @@ export default function App() {
             placeholder="Add a new todo"
             onChangeText={setNewTodoText}
             value={newTodoText}
+            maxLength={25}
           />
           <TouchableOpacity onPress={addTodo} style={styles.addButton}>
-            <AntDesign name="plus" size={24} color="blue" />
+            <FontAwesome name="plus-circle" size={24} color="blue" />
           </TouchableOpacity>
         </View>
       </View>
@@ -238,7 +239,6 @@ const styles = StyleSheet.create({
     borderWidth: 1,
   },
   input: {
-    height: 40,
     padding: 10,
     width: "80%",
   },
