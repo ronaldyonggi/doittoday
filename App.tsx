@@ -13,7 +13,7 @@ import {
 import { Todo } from "./types/Todo";
 import TodoItem from "./components/TodoItem";
 import uuid from "react-native-uuid";
-import AntDesign from "@expo/vector-icons/AntDesign";
+import FontAwesome from "@expo/vector-icons/FontAwesome";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function App() {
@@ -211,7 +211,7 @@ export default function App() {
             value={newTodoText}
           />
           <TouchableOpacity onPress={addTodo} style={styles.addButton}>
-            <AntDesign name="plus" size={24} color="blue" />
+            <FontAwesome name="plus-circle" size={24} color="blue" />
           </TouchableOpacity>
         </View>
       </View>
