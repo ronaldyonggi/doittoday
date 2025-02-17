@@ -7,7 +7,7 @@ import {
 } from "react-native";
 import React from "react";
 import { Todo } from "../types/Todo";
-import AntDesign from "@expo/vector-icons/AntDesign";
+import FontAwesome from "@expo/vector-icons/FontAwesome";
 
 interface TodoItemProps {
   todo: Todo;
@@ -22,10 +22,12 @@ export default function TodoItem({ todo, onToggle, onDelete }: TodoItemProps) {
       onPress={() => onToggle(todo.id)}
     >
       <View style={styles.itemContainer}>
-        <Text style={[styles.text, todo.completed && styles.completedText]}>
-          {todo.text}
-        </Text>
-        <AntDesign name="delete" size={18} onPress={() => onDelete(todo)} />
+        <FontAwesome
+          name="trash-o"
+          size={18}
+          onPress={() => onDelete(todo)}
+          color="red"
+        />
       </View>
     </TouchableOpacity>
   );
