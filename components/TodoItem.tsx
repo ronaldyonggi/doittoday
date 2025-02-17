@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
   text: {
-    fontSize: 16,
+    fontSize: 23,
   },
   completedText: {
     textDecorationLine: "line-through",
