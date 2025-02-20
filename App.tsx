@@ -105,6 +105,12 @@ export default function App() {
     ]);
   };
 
+  // Edit todo
+  const handleEdit = (todo: Todo) => {
+    setEditingTodo(todo);
+    setModalVisible(true);
+  };
+
   // Initial load todos data and check for reset
   useEffect(() => {
     const loadTodosAndCheckReset = async () => {
