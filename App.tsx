@@ -247,7 +247,7 @@ export default function App() {
             placeholder="Add a new todo"
             onChangeText={setNewTodoText}
             value={newTodoText}
-            maxLength={25}
+            maxLength={20}
           />
           <TouchableOpacity onPress={addTodo} style={styles.addButton}>
             <FontAwesome name="plus-circle" size={24} color="blue" />
