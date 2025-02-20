@@ -15,6 +15,7 @@ import TodoItem from "./components/TodoItem";
 import uuid from "react-native-uuid";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import EditTodoModal from "./components/EditTodoModal";
 
 export default function App() {
   const [todos, setTodos] = useState<Todo[]>([]);
@@ -226,6 +227,13 @@ export default function App() {
           keyExtractor={(item) => item.id}
         />
       </View>
+
+      <EditTodoModal
+        visible={modalVisible}
+        todo={editingTodo}
+        onSave={handleSaveEdit}
+        onCancel={handleCancelEdit}
+      />
 
       <View style={styles.inputContainer}>
         <View style={styles.inputWrapper}>
