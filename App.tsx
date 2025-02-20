@@ -122,6 +122,12 @@ export default function App() {
     setEditingTodo(null);
   };
 
+  // Cancel edit todo
+  const handleCancelEdit = () => {
+    setModalVisible(false);
+    setEditingTodo(null);
+  };
+
   // Initial load todos data and check for reset
   useEffect(() => {
     const loadTodosAndCheckReset = async () => {
