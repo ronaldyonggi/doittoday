@@ -111,6 +111,17 @@ export default function App() {
     setModalVisible(true);
   };
 
+  // Save edited todo
+  const handleSaveEdit = (id: string, newText: string) => {
+    const updatedTodos = todos.map((todo) =>
+      todo.id === id ? { ...todo, text: newText } : todo
+    );
+
+    setTodos(updatedTodos);
+    setModalVisible(false);
+    setEditingTodo(null);
+  };
+
   // Initial load todos data and check for reset
   useEffect(() => {
     const loadTodosAndCheckReset = async () => {
