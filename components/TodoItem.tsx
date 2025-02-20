@@ -39,12 +39,20 @@ export default function TodoItem({
             {todo.text}
           </Text>
         </View>
-        <FontAwesome
-          name="trash-o"
-          size={18}
-          onPress={() => onDelete(todo)}
-          color="red"
-        />
+        <View style={styles.iconsContainer}>
+          <FontAwesome
+            name="edit"
+            size={18}
+            color="gray"
+            onPress={() => onEdit(todo)}
+          />
+          <FontAwesome
+            name="trash-o"
+            size={18}
+            onPress={() => onDelete(todo)}
+            color="red"
+          />
+        </View>
       </View>
     </TouchableOpacity>
   );
