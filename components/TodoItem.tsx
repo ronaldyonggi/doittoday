@@ -80,5 +80,9 @@ const styles = StyleSheet.create({
   textAndCheckContainer: {
     flexDirection: "row",
     alignItems: "center",
-  }
+  },
+  iconsContainer: {
+    flexDirection: "row",
+    gap: 10,
+  },
 });
