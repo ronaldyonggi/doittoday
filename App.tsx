@@ -20,6 +20,7 @@ export default function App() {
   const [todos, setTodos] = useState<Todo[]>([]);
   const [newTodoText, setNewTodoText] = useState("");
   const [modalVisible, setModalVisible] = useState(false);
+  const [editingTodo, setEditingTodo] = useState<Todo | null>(null);
 
   // initialize reset timeout
   let resetTimeOut: NodeJS.Timeout | null = null;
