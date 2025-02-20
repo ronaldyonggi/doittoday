@@ -13,9 +13,15 @@ interface TodoItemProps {
   todo: Todo;
   onToggle: (id: string) => void;
   onDelete: (todo: Todo) => void;
+  onEdit: (todo: Todo) => void;
 }
 
-export default function TodoItem({ todo, onToggle, onDelete }: TodoItemProps) {
+export default function TodoItem({
+  todo,
+  onToggle,
+  onDelete,
+  onEdit,
+}: TodoItemProps) {
   return (
     <TouchableOpacity
       style={styles.container}
