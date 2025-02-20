@@ -13,9 +13,15 @@ interface TodoItemProps {
   todo: Todo;
   onToggle: (id: string) => void;
   onDelete: (todo: Todo) => void;
+  onEdit: (todo: Todo) => void;
 }
 
-export default function TodoItem({ todo, onToggle, onDelete }: TodoItemProps) {
+export default function TodoItem({
+  todo,
+  onToggle,
+  onDelete,
+  onEdit,
+}: TodoItemProps) {
   return (
     <TouchableOpacity
       style={styles.container}
@@ -33,12 +39,20 @@ export default function TodoItem({ todo, onToggle, onDelete }: TodoItemProps) {
             {todo.text}
           </Text>
         </View>
-        <FontAwesome
-          name="trash-o"
-          size={18}
-          onPress={() => onDelete(todo)}
-          color="red"
-        />
+        <View style={styles.iconsContainer}>
+          <FontAwesome
+            name="edit"
+            size={18}
+            color="gray"
+            onPress={() => onEdit(todo)}
+          />
+          <FontAwesome
+            name="trash-o"
+            size={18}
+            onPress={() => onDelete(todo)}
+            color="red"
+          />
+        </View>
       </View>
     </TouchableOpacity>
   );
@@ -66,5 +80,9 @@ const styles = StyleSheet.create({
   textAndCheckContainer: {
     flexDirection: "row",
     alignItems: "center",
-  }
+  },
+  iconsContainer: {
+    flexDirection: "row",
+    gap: 10,
+  },
 });

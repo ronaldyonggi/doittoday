@@ -15,10 +15,13 @@ import TodoItem from "./components/TodoItem";
 import uuid from "react-native-uuid";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import EditTodoModal from "./components/EditTodoModal";
 
 export default function App() {
   const [todos, setTodos] = useState<Todo[]>([]);
   const [newTodoText, setNewTodoText] = useState("");
+  const [modalVisible, setModalVisible] = useState(false);
+  const [editingTodo, setEditingTodo] = useState<Todo | null>(null);
 
   // initialize reset timeout
   let resetTimeOut: NodeJS.Timeout | null = null;
@@ -101,6 +104,29 @@ export default function App() {
         },
       },
     ]);
+  };
+
+  // Edit todo
+  const handleEdit = (todo: Todo) => {
+    setEditingTodo(todo);
+    setModalVisible(true);
+  };
+
+  // Save edited todo
+  const handleSaveEdit = (id: string, newText: string) => {
+    const updatedTodos = todos.map((todo) =>
+      todo.id === id ? { ...todo, text: newText } : todo
+    );
+
+    setTodos(updatedTodos);
+    setModalVisible(false);
+    setEditingTodo(null);
+  };
+
+  // Cancel edit todo
+  const handleCancelEdit = () => {
+    setModalVisible(false);
+    setEditingTodo(null);
   };
 
   // Initial load todos data and check for reset
@@ -196,11 +222,23 @@ export default function App() {
         <FlatList
           data={todos}
           renderItem={({ item }) => (
-            <TodoItem todo={item} onToggle={toggleTodo} onDelete={deleteTodo} />
+            <TodoItem
+              todo={item}
+              onToggle={toggleTodo}
+              onDelete={deleteTodo}
+              onEdit={handleEdit}
+            />
           )}
           keyExtractor={(item) => item.id}
         />
       </View>
+
+      <EditTodoModal
+        visible={modalVisible}
+        todo={editingTodo}
+        onSave={handleSaveEdit}
+        onCancel={handleCancelEdit}
+      />
 
       <View style={styles.inputContainer}>
         <View style={styles.inputWrapper}>
@@ -209,7 +247,7 @@ export default function App() {
             placeholder="Add a new todo"
             onChangeText={setNewTodoText}
             value={newTodoText}
-            maxLength={25}
+            maxLength={20}
           />
           <TouchableOpacity onPress={addTodo} style={styles.addButton}>
             <FontAwesome name="plus-circle" size={24} color="blue" />
