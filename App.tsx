@@ -222,7 +222,12 @@ export default function App() {
         <FlatList
           data={todos}
           renderItem={({ item }) => (
-            <TodoItem todo={item} onToggle={toggleTodo} onDelete={deleteTodo} />
+            <TodoItem
+              todo={item}
+              onToggle={toggleTodo}
+              onDelete={deleteTodo}
+              onEdit={handleEdit}
+            />
           )}
           keyExtractor={(item) => item.id}
         />
